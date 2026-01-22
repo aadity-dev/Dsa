@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug C++ (LLDB)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}/${fileBasenameNoExtension}",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "MIMode": "lldb",
+      "stopAtEntry": false,
+      "externalConsole": false,
+      "preLaunchTask": "build c++ (clang++)"
+    }
+  ]
+}
