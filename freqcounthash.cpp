@@ -16,16 +16,11 @@ int main(){
             count++;
         }
         else {
-            cout<<num[i-1]<<" apppears "<<count<<" times\n";
             if(count == 2) {
-                cout << " appears twice: " << num[i-1] << endl;
+                cout << num[i-1];
         }
         count = 1;
         }
-    }
-    cout << num[n-1] << " appears " << count << " times\n";
-    if(count == 2) {
-        cout << "appears twice: " << num[n-1] << endl;
     }
     return 0;
 }
