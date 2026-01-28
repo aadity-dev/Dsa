@@ -8,11 +8,15 @@ int main(){
     for(int i = 0; i < n; i++){
         cin >> arr[i];
     }
+
     int low=0;
     int high = n - 1;
     while(low < high)
     {
         int mid = low + (low+high)/2;
+        if(arr[mid] > arr[mid-1] && arr[mid] > arr[mid+1]){//1 3 4 9 5  7 
+            return arr[mid];
+        }
         if(arr[mid] < arr[mid + 1]){
             low = mid + 1;
         }else{
