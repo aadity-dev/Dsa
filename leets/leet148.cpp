@@ -8,28 +8,76 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+// class Solution
+// {
+// public:
+//     ListNode* sortList(ListNode* head) 
+//     {
+//         if (!head || !head->next) return head;
+//         bool swapped;
+//         do
+//         {
+//             swapped = false;
+//             ListNode* temp = head;
+//             while(temp ->next)
+//             {
+//                if(temp->val > temp->next->val)
+//                {
+//                     swap(temp->val,temp->next->val);
+//                     swapped = true;
+//                }
+//                temp = temp->next; 
+//             }
+//         }
+//         while(swapped);
+//         return head;
+//     }  
+// };
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution
 {
 public:
-    ListNode* sortList(ListNode* head) 
-    {
+    ListNode* sortList(ListNode* head) {
         if (!head || !head->next) return head;
-        bool swapped;
-        do
-        {
-            swapped = false;
-            ListNode* temp = head;
-            while(temp ->next)
-            {
-               if(temp->val > temp->next->val)
-               {
-                    swap(temp->val,temp->next->val);
-                    swapped = true;
-               }
-               temp = temp->next; 
-            }
+        ListNode* slow = head;
+        ListNode* fast = head;
+        ListNode* prev = nullptr;
+        while(fast && fast->next){
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        while(swapped);
-        return head;
-    }  
+        prev->next = nullptr; //split
+
+        ListNode* left = sortList(head);
+        ListNode* right = sortList(slow);
+
+        return merge(left, right);
+    }
+    ListNode* merge(ListNode *a, ListNode *b){
+        ListNode dummy(0);
+        ListNode *tail = &dummy;
+
+        while( a && b){
+            if(a -> val <= b->val){
+                tail->next = a;
+                a = a->next;
+            }else {
+                tail->next = b;
+                b = b->next;
+            }
+             tail = tail->next;
+        }
+        tail->next = a ? a : b;
+        return dummy.next;
+    }
 };
