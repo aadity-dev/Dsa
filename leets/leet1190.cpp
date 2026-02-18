@@ -3,6 +3,8 @@ public:
     string reverseParentheses(string s) {
         stack<string> st;
         string curr = "";
+
+
         for(char c : s)
         {
             if(c == '('){
