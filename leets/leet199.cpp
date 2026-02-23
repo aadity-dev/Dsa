@@ -9,6 +9,7 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+//dfs..
 class Solution {
 public:
 vector<int> rightSideView(TreeNode* root, int level = 0) {
@@ -23,6 +24,7 @@ vector<int> rightSideView(TreeNode* root, int level = 0) {
     return ans;
     }
 };
+//bfs..
 //  if(root == NULL){
 //             return;
 //         }
