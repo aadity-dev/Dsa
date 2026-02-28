@@ -9,13 +9,11 @@ public:
             q.pop();
         }
     }
-
     int pop() {
         int temp = q.front();
         q.pop();
         return temp;
     }
-
     int top() {
         return q.front();
     }

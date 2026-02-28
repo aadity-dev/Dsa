@@ -1,5 +1,7 @@
 #include<iostream>
 #include<vector>
+// to print all possible combinations.
+
 using namespace std;
 int main()
 {
@@ -9,8 +11,7 @@ int main()
     {
         cin >> arr[i];
     }
-
-    for(int i=0;i<(1<<n);i++)
+    for(int i=0;i<(1<<n);i++) // 2^n-1 
     {      
         vector<int> temp;
         for(int j =0;j<n;j++)
