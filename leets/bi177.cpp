@@ -27,6 +27,28 @@ public:
         return {-1, -1};
     }
 };
+tle--
+class Solution {
+public:
+    vector<int> minDistinctFreqPair(vector<int>& nums) {
+        unordered_map<int,int> mp;
+        for(int x : nums) mp[x]++;
+
+        vector<int> k;
+        for(auto &p : mp)
+            k.push_back(p.first);
+
+        sort(k.begin(), k.end());
+
+        for(int i = 0; i + 1 < k.size(); i++) {
+            if(mp[k[i]] != mp[k[i+1]]) {
+                return {k[i], k[i+1]};
+            }
+        }
+
+        return {-1, -1};
+    }
+};
 // class Solution {
 //     public:
 //         vector<int> minDistinctFreqPair(vector<int>& nums) {
