@@ -6,7 +6,7 @@ public:
     int h = n;
     while(l<=h)
     {
-        int mid = (l + h)/2;
+        int mid = l + (h - l)/2;
         int res=guess(mid);
         if(res == 0)
         {
