@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
 
+
 void spiralPrint(int arr [][],int row, int col){
     int topRow = 0;
     int bottomRow = row - 1;
@@ -14,10 +15,9 @@ void spiralPrint(int arr [][],int row, int col){
     }
     for(int i = topRow)
 }
+
+
 int main(){
-
-
-
     int arr[3][3] = {{1,2,3,},{4,5,6},{7,8,9}};
     //c
     int maxSum = 0;
