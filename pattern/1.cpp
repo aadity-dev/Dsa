@@ -45,6 +45,20 @@ void pattern5(int n){
         cout <<endl;
     }
 }
+void pattern6(int n){
+    for (int i = n-1;i>=0;i--){
+        int cnt  = 1;
+        for(int j = i;j >= 0;j--){
+            cout << cnt << " ";
+            cnt++;
+        }
+        cout << endl;
+    }
+}
+
+
+
+
 void pattern13(int n){
     int count = 1;
     for(int i=0;i<n;i++){
@@ -67,7 +81,8 @@ int main(){
     //pattern2(N);
     //pattern3(N);
     //pattern4(N);
-    pattern5(N);
+    //pattern5(N);
+    pattern6(N);
     //pattern13(N);
     return 0;
 }
