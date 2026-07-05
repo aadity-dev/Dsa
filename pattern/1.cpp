@@ -1,6 +1,5 @@
 #include<iostream>
 using namespace std;
-
 void pattern1(int n){
     for(int i = 0;i<n;i++){
         for(int j = 0;j<n;j++){
@@ -8,7 +7,8 @@ void pattern1(int n){
         }
         cout<<endl;
     }
-}void pattern2(int n){
+}
+void pattern2(int n){
     for(int i=0;i<n;i++){
         for(int j=0;j <= i;j++){
             cout << " * "<< " ";
@@ -16,7 +16,6 @@ void pattern1(int n){
         cout <<endl;
     }
 }
-
 void pattern3(int n){
     for(int i=0;i<n;i++){
         int count = 0;
@@ -28,7 +27,6 @@ void pattern3(int n){
         cout <<endl;
     }
 }
-
 void pattern4(int n){
       int cnt = 1;
     for(int i=0;i<n;i++){
@@ -39,7 +37,14 @@ void pattern4(int n){
         cout<<endl;
     }
 }
-
+void pattern5(int n){
+    for(int i = n-1;i >= 0; i--){
+        for(int j = i;j >= 0; j--){
+            cout << " * " << " "; 
+        }
+        cout <<endl;
+    }
+}
 void pattern13(int n){
     int count = 1;
     for(int i=0;i<n;i++){
@@ -51,13 +56,18 @@ void pattern13(int n){
         cout <<endl;
     }
 }
+
+
+
+
 int main(){
     int N;
     cin >> N;
     //pattern1(N);
     //pattern2(N);
     //pattern3(N);
-    pattern4(N);
+    //pattern4(N);
+    pattern5(N);
     //pattern13(N);
     return 0;
 }
