@@ -55,6 +55,9 @@ void pattern6(int n){
         cout << endl;
     }
 }
+void pattern7(int n){
+    
+}
 
 
 
@@ -82,7 +85,8 @@ int main(){
     //pattern3(N);
     //pattern4(N);
     //pattern5(N);
-    pattern6(N);
+    //pattern6(N);
+    pattern7(N);
     //pattern13(N);
     return 0;
 }
