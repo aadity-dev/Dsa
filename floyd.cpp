@@ -6,6 +6,8 @@ struct ListNode {
     ListNode(int x) : val(x), next(nullptr) {}
 };
 
+
+
 class Solution {
 public:
     void removeCycle(ListNode *head) {
