@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concatenate Non-Zero Digits and Multiply by Sum II - Visualizer</title>
+<style>
+:root{--bg:#0f1220;--panel:#171b2e;--alt:#1b2038;--border:#2a3050;--text:#e8eaf6;--dim:#9aa0c3;
+--accent:#7c9eff;--accentbg:rgba(124,158,255,.15);--amber:#ffb454;--amberbg:rgba(255,180,84,.18);
+--good:#4ade80;--goodbg:rgba(74,222,128,.16);--mono:ui-monospace,"SF Mono",Consolas,monospace;
+--sans:-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);padding:20px}
+.wrap{max-width:1180px;margin:0 auto}
+h1{font-size:22px;margin:0 0 6px}
+.meta{font-size:12px;color:var(--accent);margin-bottom:8px}
+.statement{color:var(--dim);font-size:13.5px;margin:0 0 6px;max-width:900px}
+.input-line{font-family:var(--mono);font-size:13px;background:var(--alt);border:1px solid var(--border);
+padding:6px 10px;border-radius:6px;display:inline-block}
+.grid2{display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:14px;margin-top:14px}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px}
+.panel h2{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin:0 0 8px}
+.code{font-family:var(--mono);font-size:12.5px;line-height:1.75;overflow-x:auto}
+.code div{display:flex;gap:10px;padding:0 6px;border-radius:5px;white-space:pre;color:var(--dim);border-left:3px solid transparent}
+.code span.ln{color:#4a5178;min-width:18px;text-align:right}
+.code div.cur{background:var(--accentbg);border-left-color:var(--accent);color:var(--text)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{font-family:var(--mono);font-size:12px;background:var(--alt);border:1px solid var(--border);padding:4px 8px;border-radius:6px}
+.chip b{color:var(--accent)}
+.arr{display:flex;gap:5px;flex-wrap:wrap;padding-top:20px;margin-bottom:14px}
+.col{display:flex;flex-direction:column;align-items:center;position:relative}
+.cell{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);
+font-weight:600;background:var(--alt);border:1px solid var(--border);border-radius:7px;font-size:14px}
+.cell.active{background:var(--accentbg);border-color:var(--accent)}
+.cell.compare{background:var(--amberbg);border-color:var(--amber)}
+.cell.match{background:var(--goodbg);border-color:var(--good)}
+.cell.visited{opacity:.75;background:var(--amberbg);border-color:var(--amber)}
+.idx{font-size:9px;color:var(--dim);margin-top:3px}
+.ptr{position:absolute;top:-19px;font-size:10px;font-family:var(--mono);font-weight:700;color:var(--accent);
+background:var(--accentbg);padding:0 4px;border-radius:4px;white-space:nowrap}
+.gridtable{border-collapse:separate;border-spacing:4px;font-family:var(--mono);font-size:11px;margin-top:4px}
+.gridtable td{width:74px;height:44px;text-align:center;vertical-align:middle;background:var(--alt);
+border:1px solid var(--border);border-radius:6px;color:var(--dim)}
+.gridtable td.k-label{background:transparent;border:none;color:var(--accent);font-weight:700;width:28px}
+.gridtable td.filled{color:var(--text)}
+.gridtable td.compare{background:var(--amberbg);border-color:var(--amber);color:var(--text)}
+.gridtable td.match{background:var(--goodbg);border-color:var(--good);color:var(--text);font-weight:700}
+.gcell-val{font-weight:700}
+.gcell-sub{font-size:9px;color:var(--dim)}
+.narr{margin-top:12px;background:var(--alt);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:13.5px;line-height:1.5}
+.result{margin-top:10px;padding:10px 14px;border-radius:8px;background:var(--goodbg);border:1px solid var(--good);
+color:var(--good);font-family:var(--mono);font-weight:700;display:none}
+.result.show{display:block}
+.ctrl{margin-top:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--panel);
+border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+button{font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;background:var(--alt);color:var(--text);
+border:1px solid var(--border);padding:7px 12px;border-radius:7px}
+button:disabled{opacity:.35;cursor:not-allowed}
+button.primary{background:var(--accentbg);border-color:var(--accent);color:var(--accent)}
+.count{font-family:var(--mono);font-size:12.5px;color:var(--dim);min-width:80px;text-align:center}
+input[type=range]{flex:1;min-width:140px;accent-color:var(--accent)}
+input[type=number]{width:64px;font-family:var(--mono);background:var(--alt);border:1px solid var(--border);
+color:var(--text);border-radius:5px;padding:5px 6px}
+.phase{display:inline-block;font-family:var(--mono);font-size:10.5px;color:var(--amber);background:var(--amberbg);
+border:1px solid var(--amber);padding:2px 7px;border-radius:5px;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Concatenate Non-Zero Digits and Multiply by Sum II</h1>
+<div class="meta">Sparse Table (disjoint power-of-two decomposition) &middot; Hard</div>
+<p class="statement">For each query [l,r], concatenate the non-zero digits of s[l..r] into x (0 if none), let sum be the digit sum of x, and return x&nbsp;&times;&nbsp;sum mod 1e9+7. A sparse table stores, for every block of length 2^k, its concatenated value/digit-count/digit-sum so any range can be answered by merging O(log n) disjoint blocks.</p>
+<div class="input-line">s = "10203004"&nbsp;&nbsp;queries = [[0,7],[1,3],[4,6]]</div>
+
+<div class="grid2">
+  <div class="panel code" id="code"></div>
+  <div class="panel">
+    <h2>State</h2>
+    <span class="phase" id="phase"></span>
+    <div class="chips" id="vars"></div>
+    <div class="arr" id="arr"></div>
+    <h2>Sparse table &mdash; val / cnt / sum</h2>
+    <div id="gridwrap" style="overflow-x:auto"></div>
+    <div class="narr" id="narr"></div>
+    <div class="result" id="result"></div>
+  </div>
+</div>
+
+<div class="ctrl">
+  <button id="reset">Reset</button>
+  <button id="prev">&#9664; Prev</button>
+  <button id="play" class="primary">&#9654; Play</button>
+  <button id="next">Next &#9654;</button>
+  <span class="count" id="count">1 / 1</span>
+  <input type="range" id="slider" min="0" max="0" value="0" step="1">
+  <input type="number" id="speed" min="200" max="5000" step="100" value="1400" title="speed ms">
+</div>
+</div>
+
+<script>
+const digits = [1, 0, 2, 0, 3, 0, 0, 4];
+const M = 8;
+const MAXK = 3;
+const steps = [{"phase": "build0", "line": 6, "narration": "Base case: digit s[0] = 1. val[0][0] = 1, cnt[0][0] = 1, sum[0][0] = 1.", "arrHighlight": {"0": "active"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}], "gridHighlight": [{"k": 0, "i": 0, "cls": "match"}], "vars": {"i": 0, "d": 1}}, {"phase": "build0", "line": 6, "narration": "Base case: digit s[1] = 0. val[0][1] = 0, cnt[0][1] = 0, sum[0][1] = 0.", "arrHighlight": {"1": "active"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}], "gridHighlight": [{"k": 0, "i": 1, "cls": "match"}], "vars": {"i": 1, "d": 0}}, {"phase": "build0", "line": 6, "narration": "Base case: digit s[2] = 2. val[0][2] = 2, cnt[0][2] = 1, sum[0][2] = 2.", "arrHighlight": {"2": "active"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}], "gridHighlight": [{"k": 0, "i": 2, "cls": "match"}], "vars": {"i": 2, "d": 2}}, {"phase": "build0", "line": 6, "narration": "Base case: digit s[3] = 0. val[0][3] = 0, cnt[0][3] = 0, sum[0][3] = 0.", "arrHighlight": {"3": "active"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}], "gridHighlight": [{"k": 0, "i": 3, "cls": "match"}], "vars": {"i": 3, "d": 0}}, {"phase": "build0", "line": 6, "narration": "Base case: digit s[4] = 3. val[0][4] = 3, cnt[0][4] = 1, sum[0][4] = 3.", "arrHighlight": {"4": "active"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}], "gridHighlight": [{"k": 0, "i": 4, "cls": "match"}], "vars": {"i": 4, "d": 3}}, {"phase": "build0", "line": 6, "narration": "Base case: digit s[5] = 0. val[0][5] = 0, cnt[0][5] = 0, sum[0][5] = 0.", "arrHighlight": {"5": "active"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}], "gridHighlight": [{"k": 0, "i": 5, "cls": "match"}], "vars": {"i": 5, "d": 0}}, {"phase": "build0", "line": 6, "narration": "Base case: digit s[6] = 0. val[0][6] = 0, cnt[0][6] = 0, sum[0][6] = 0.", "arrHighlight": {"6": "active"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}], "gridHighlight": [{"k": 0, "i": 6, "cls": "match"}], "vars": {"i": 6, "d": 0}}, {"phase": "build0", "line": 6, "narration": "Base case: digit s[7] = 4. val[0][7] = 4, cnt[0][7] = 1, sum[0][7] = 4.", "arrHighlight": {"7": "active"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}], "gridHighlight": [{"k": 0, "i": 7, "cls": "match"}], "vars": {"i": 7, "d": 4}}, {"phase": "build1", "line": 16, "narration": "Merge level k=1, i=0: combine block[0][0] (val=1,cnt=1) with block[0][1] (val=0,cnt=0) -> val=1, cnt=1, sum=1.", "arrHighlight": {"0": "visited", "1": "visited"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}], "gridHighlight": [{"k": 0, "i": 0, "cls": "compare"}, {"k": 0, "i": 1, "cls": "compare"}, {"k": 1, "i": 0, "cls": "match"}], "vars": {"k": 1, "i": 0, "j": 1, "leftVal": 1, "leftCnt": 1, "rightVal": 0, "rightCnt": 0}}, {"phase": "build1", "line": 16, "narration": "Merge level k=1, i=1: combine block[0][1] (val=0,cnt=0) with block[0][2] (val=2,cnt=1) -> val=2, cnt=1, sum=2.", "arrHighlight": {"1": "visited", "2": "visited"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}], "gridHighlight": [{"k": 0, "i": 1, "cls": "compare"}, {"k": 0, "i": 2, "cls": "compare"}, {"k": 1, "i": 1, "cls": "match"}], "vars": {"k": 1, "i": 1, "j": 2, "leftVal": 0, "leftCnt": 0, "rightVal": 2, "rightCnt": 1}}, {"phase": "build1", "line": 16, "narration": "Merge level k=1, i=2: combine block[0][2] (val=2,cnt=1) with block[0][3] (val=0,cnt=0) -> val=2, cnt=1, sum=2.", "arrHighlight": {"2": "visited", "3": "visited"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}], "gridHighlight": [{"k": 0, "i": 2, "cls": "compare"}, {"k": 0, "i": 3, "cls": "compare"}, {"k": 1, "i": 2, "cls": "match"}], "vars": {"k": 1, "i": 2, "j": 3, "leftVal": 2, "leftCnt": 1, "rightVal": 0, "rightCnt": 0}}, {"phase": "build1", "line": 16, "narration": "Merge level k=1, i=3: combine block[0][3] (val=0,cnt=0) with block[0][4] (val=3,cnt=1) -> val=3, cnt=1, sum=3.", "arrHighlight": {"3": "visited", "4": "visited"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}], "gridHighlight": [{"k": 0, "i": 3, "cls": "compare"}, {"k": 0, "i": 4, "cls": "compare"}, {"k": 1, "i": 3, "cls": "match"}], "vars": {"k": 1, "i": 3, "j": 4, "leftVal": 0, "leftCnt": 0, "rightVal": 3, "rightCnt": 1}}, {"phase": "build1", "line": 16, "narration": "Merge level k=1, i=4: combine block[0][4] (val=3,cnt=1) with block[0][5] (val=0,cnt=0) -> val=3, cnt=1, sum=3.", "arrHighlight": {"4": "visited", "5": "visited"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}], "gridHighlight": [{"k": 0, "i": 4, "cls": "compare"}, {"k": 0, "i": 5, "cls": "compare"}, {"k": 1, "i": 4, "cls": "match"}], "vars": {"k": 1, "i": 4, "j": 5, "leftVal": 3, "leftCnt": 1, "rightVal": 0, "rightCnt": 0}}, {"phase": "build1", "line": 16, "narration": "Merge level k=1, i=5: combine block[0][5] (val=0,cnt=0) with block[0][6] (val=0,cnt=0) -> val=0, cnt=0, sum=0.", "arrHighlight": {"5": "visited", "6": "visited"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}], "gridHighlight": [{"k": 0, "i": 5, "cls": "compare"}, {"k": 0, "i": 6, "cls": "compare"}, {"k": 1, "i": 5, "cls": "match"}], "vars": {"k": 1, "i": 5, "j": 6, "leftVal": 0, "leftCnt": 0, "rightVal": 0, "rightCnt": 0}}, {"phase": "build1", "line": 16, "narration": "Merge level k=1, i=6: combine block[0][6] (val=0,cnt=0) with block[0][7] (val=4,cnt=1) -> val=4, cnt=1, sum=4.", "arrHighlight": {"6": "visited", "7": "visited"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}], "gridHighlight": [{"k": 0, "i": 6, "cls": "compare"}, {"k": 0, "i": 7, "cls": "compare"}, {"k": 1, "i": 6, "cls": "match"}], "vars": {"k": 1, "i": 6, "j": 7, "leftVal": 0, "leftCnt": 0, "rightVal": 4, "rightCnt": 1}}, {"phase": "build2", "line": 16, "narration": "Merge level k=2, i=0: combine block[1][0] (val=1,cnt=1) with block[1][2] (val=2,cnt=1) -> val=12, cnt=2, sum=3.", "arrHighlight": {"0": "visited", "1": "visited", "2": "visited", "3": "visited"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}], "gridHighlight": [{"k": 1, "i": 0, "cls": "compare"}, {"k": 1, "i": 2, "cls": "compare"}, {"k": 2, "i": 0, "cls": "match"}], "vars": {"k": 2, "i": 0, "j": 2, "leftVal": 1, "leftCnt": 1, "rightVal": 2, "rightCnt": 1}}, {"phase": "build2", "line": 16, "narration": "Merge level k=2, i=1: combine block[1][1] (val=2,cnt=1) with block[1][3] (val=3,cnt=1) -> val=23, cnt=2, sum=5.", "arrHighlight": {"1": "visited", "2": "visited", "3": "visited", "4": "visited"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}], "gridHighlight": [{"k": 1, "i": 1, "cls": "compare"}, {"k": 1, "i": 3, "cls": "compare"}, {"k": 2, "i": 1, "cls": "match"}], "vars": {"k": 2, "i": 1, "j": 3, "leftVal": 2, "leftCnt": 1, "rightVal": 3, "rightCnt": 1}}, {"phase": "build2", "line": 16, "narration": "Merge level k=2, i=2: combine block[1][2] (val=2,cnt=1) with block[1][4] (val=3,cnt=1) -> val=23, cnt=2, sum=5.", "arrHighlight": {"2": "visited", "3": "visited", "4": "visited", "5": "visited"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}], "gridHighlight": [{"k": 1, "i": 2, "cls": "compare"}, {"k": 1, "i": 4, "cls": "compare"}, {"k": 2, "i": 2, "cls": "match"}], "vars": {"k": 2, "i": 2, "j": 4, "leftVal": 2, "leftCnt": 1, "rightVal": 3, "rightCnt": 1}}, {"phase": "build2", "line": 16, "narration": "Merge level k=2, i=3: combine block[1][3] (val=3,cnt=1) with block[1][5] (val=0,cnt=0) -> val=3, cnt=1, sum=3.", "arrHighlight": {"3": "visited", "4": "visited", "5": "visited", "6": "visited"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}], "gridHighlight": [{"k": 1, "i": 3, "cls": "compare"}, {"k": 1, "i": 5, "cls": "compare"}, {"k": 2, "i": 3, "cls": "match"}], "vars": {"k": 2, "i": 3, "j": 5, "leftVal": 3, "leftCnt": 1, "rightVal": 0, "rightCnt": 0}}, {"phase": "build2", "line": 16, "narration": "Merge level k=2, i=4: combine block[1][4] (val=3,cnt=1) with block[1][6] (val=4,cnt=1) -> val=34, cnt=2, sum=7.", "arrHighlight": {"4": "visited", "5": "visited", "6": "visited", "7": "visited"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 2, "i": 4, "val": 34, "cnt": 2, "sum": 7}], "gridHighlight": [{"k": 1, "i": 4, "cls": "compare"}, {"k": 1, "i": 6, "cls": "compare"}, {"k": 2, "i": 4, "cls": "match"}], "vars": {"k": 2, "i": 4, "j": 6, "leftVal": 3, "leftCnt": 1, "rightVal": 4, "rightCnt": 1}}, {"phase": "build3", "line": 16, "narration": "Merge level k=3, i=0: combine block[2][0] (val=12,cnt=2) with block[2][4] (val=34,cnt=2) -> val=1234, cnt=4, sum=10.", "arrHighlight": {"0": "visited", "1": "visited", "2": "visited", "3": "visited", "4": "visited", "5": "visited", "6": "visited", "7": "visited"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 2, "i": 4, "val": 34, "cnt": 2, "sum": 7}, {"k": 3, "i": 0, "val": 1234, "cnt": 4, "sum": 10}], "gridHighlight": [{"k": 2, "i": 0, "cls": "compare"}, {"k": 2, "i": 4, "cls": "compare"}, {"k": 3, "i": 0, "cls": "match"}], "vars": {"k": 3, "i": 0, "j": 4, "leftVal": 12, "leftCnt": 2, "rightVal": 34, "rightCnt": 2}}, {"phase": "query0-start", "line": 20, "narration": "Query 0: l=0, r=7. Decompose range into disjoint power-of-two blocks. pos=0, remaining=8, curVal=0, curCnt=0, curSum=0.", "arrHighlight": {"0": "active", "1": "active", "2": "active", "3": "active", "4": "active", "5": "active", "6": "active", "7": "active"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 2, "i": 4, "val": 34, "cnt": 2, "sum": 7}, {"k": 3, "i": 0, "val": 1234, "cnt": 4, "sum": 10}], "gridHighlight": [], "vars": {"l": 0, "r": 7, "pos": 0, "remaining": 8, "curVal": 0, "curCnt": 0, "curSum": 0, "ans": "[]"}}, {"phase": "query0-block", "line": 24, "narration": "Take block k=3, i=0 (size 8): val=1234, cnt=4, sum=10. curVal = 0*10^4 + 1234 = 1234. curCnt=4, curSum=10.", "arrHighlight": {"0": "match", "1": "match", "2": "match", "3": "match", "4": "match", "5": "match", "6": "match", "7": "match"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 2, "i": 4, "val": 34, "cnt": 2, "sum": 7}, {"k": 3, "i": 0, "val": 1234, "cnt": 4, "sum": 10}], "gridHighlight": [{"k": 3, "i": 0, "cls": "compare"}], "vars": {"l": 0, "r": 7, "pos": 8, "remaining": 0, "curVal": 1234, "curCnt": 4, "curSum": 10, "ans": "[]"}}, {"phase": "query0-answer", "line": 28, "narration": "remaining=0. answer[0] = curVal * curSum mod (1e9+7) = 1234 * 10 mod (1e9+7) = 12340.", "arrHighlight": {"0": "match", "1": "match", "2": "match", "3": "match", "4": "match", "5": "match", "6": "match", "7": "match"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 2, "i": 4, "val": 34, "cnt": 2, "sum": 7}, {"k": 3, "i": 0, "val": 1234, "cnt": 4, "sum": 10}], "gridHighlight": [], "vars": {"l": 0, "r": 7, "curVal": 1234, "curSum": 10, "ans": "[12340]"}, "result": null}, {"phase": "query1-start", "line": 20, "narration": "Query 1: l=1, r=3. Decompose range into disjoint power-of-two blocks. pos=1, remaining=3, curVal=0, curCnt=0, curSum=0.", "arrHighlight": {"1": "active", "2": "active", "3": "active"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 2, "i": 4, "val": 34, "cnt": 2, "sum": 7}, {"k": 3, "i": 0, "val": 1234, "cnt": 4, "sum": 10}], "gridHighlight": [], "vars": {"l": 1, "r": 3, "pos": 1, "remaining": 3, "curVal": 0, "curCnt": 0, "curSum": 0, "ans": "[12340]"}}, {"phase": "query1-block", "line": 24, "narration": "Take block k=1, i=1 (size 2): val=2, cnt=1, sum=2. curVal = 0*10^1 + 2 = 2. curCnt=1, curSum=2.", "arrHighlight": {"1": "match", "2": "match"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 2, "i": 4, "val": 34, "cnt": 2, "sum": 7}, {"k": 3, "i": 0, "val": 1234, "cnt": 4, "sum": 10}], "gridHighlight": [{"k": 1, "i": 1, "cls": "compare"}], "vars": {"l": 1, "r": 3, "pos": 3, "remaining": 1, "curVal": 2, "curCnt": 1, "curSum": 2, "ans": "[12340]"}}, {"phase": "query1-block", "line": 24, "narration": "Take block k=0, i=3 (size 1): val=0, cnt=0, sum=0. curVal = 2*10^0 + 0 = 2. curCnt=1, curSum=2.", "arrHighlight": {"3": "match"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 2, "i": 4, "val": 34, "cnt": 2, "sum": 7}, {"k": 3, "i": 0, "val": 1234, "cnt": 4, "sum": 10}], "gridHighlight": [{"k": 0, "i": 3, "cls": "compare"}], "vars": {"l": 1, "r": 3, "pos": 4, "remaining": 0, "curVal": 2, "curCnt": 1, "curSum": 2, "ans": "[12340]"}}, {"phase": "query1-answer", "line": 28, "narration": "remaining=0. answer[1] = curVal * curSum mod (1e9+7) = 2 * 2 mod (1e9+7) = 4.", "arrHighlight": {"1": "match", "2": "match", "3": "match"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 2, "i": 4, "val": 34, "cnt": 2, "sum": 7}, {"k": 3, "i": 0, "val": 1234, "cnt": 4, "sum": 10}], "gridHighlight": [], "vars": {"l": 1, "r": 3, "curVal": 2, "curSum": 2, "ans": "[12340, 4]"}, "result": null}, {"phase": "query2-start", "line": 20, "narration": "Query 2: l=4, r=6. Decompose range into disjoint power-of-two blocks. pos=4, remaining=3, curVal=0, curCnt=0, curSum=0.", "arrHighlight": {"4": "active", "5": "active", "6": "active"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 2, "i": 4, "val": 34, "cnt": 2, "sum": 7}, {"k": 3, "i": 0, "val": 1234, "cnt": 4, "sum": 10}], "gridHighlight": [], "vars": {"l": 4, "r": 6, "pos": 4, "remaining": 3, "curVal": 0, "curCnt": 0, "curSum": 0, "ans": "[12340, 4]"}}, {"phase": "query2-block", "line": 24, "narration": "Take block k=1, i=4 (size 2): val=3, cnt=1, sum=3. curVal = 0*10^1 + 3 = 3. curCnt=1, curSum=3.", "arrHighlight": {"4": "match", "5": "match"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 2, "i": 4, "val": 34, "cnt": 2, "sum": 7}, {"k": 3, "i": 0, "val": 1234, "cnt": 4, "sum": 10}], "gridHighlight": [{"k": 1, "i": 4, "cls": "compare"}], "vars": {"l": 4, "r": 6, "pos": 6, "remaining": 1, "curVal": 3, "curCnt": 1, "curSum": 3, "ans": "[12340, 4]"}}, {"phase": "query2-block", "line": 24, "narration": "Take block k=0, i=6 (size 1): val=0, cnt=0, sum=0. curVal = 3*10^0 + 0 = 3. curCnt=1, curSum=3.", "arrHighlight": {"6": "match"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 2, "i": 4, "val": 34, "cnt": 2, "sum": 7}, {"k": 3, "i": 0, "val": 1234, "cnt": 4, "sum": 10}], "gridHighlight": [{"k": 0, "i": 6, "cls": "compare"}], "vars": {"l": 4, "r": 6, "pos": 7, "remaining": 0, "curVal": 3, "curCnt": 1, "curSum": 3, "ans": "[12340, 4]"}}, {"phase": "query2-answer", "line": 28, "narration": "remaining=0. answer[2] = curVal * curSum mod (1e9+7) = 3 * 3 mod (1e9+7) = 9.", "arrHighlight": {"4": "match", "5": "match", "6": "match"}, "grid": [{"k": 0, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 0, "i": 1, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 0, "i": 3, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 0, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 6, "val": 0, "cnt": 0, "sum": 0}, {"k": 0, "i": 7, "val": 4, "cnt": 1, "sum": 4}, {"k": 1, "i": 0, "val": 1, "cnt": 1, "sum": 1}, {"k": 1, "i": 1, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 2, "val": 2, "cnt": 1, "sum": 2}, {"k": 1, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 4, "val": 3, "cnt": 1, "sum": 3}, {"k": 1, "i": 5, "val": 0, "cnt": 0, "sum": 0}, {"k": 1, "i": 6, "val": 4, "cnt": 1, "sum": 4}, {"k": 2, "i": 0, "val": 12, "cnt": 2, "sum": 3}, {"k": 2, "i": 1, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 2, "val": 23, "cnt": 2, "sum": 5}, {"k": 2, "i": 3, "val": 3, "cnt": 1, "sum": 3}, {"k": 2, "i": 4, "val": 34, "cnt": 2, "sum": 7}, {"k": 3, "i": 0, "val": 1234, "cnt": 4, "sum": 10}], "gridHighlight": [], "vars": {"l": 4, "r": 6, "curVal": 3, "curSum": 3, "ans": "[12340, 4, 9]"}, "result": "[12340, 4, 9]"}];
+
+const code = [
+"class Solution {",
+"public:",
+"    vector<int> concatenatedDigits(string s, vector<vector<int>>& queries) {",
+"        int m = s.size();",
+"        // build sparse table: val[k][i], cnt[k][i], sum[k][i]",
+"        for (int i = 0; i < m; i++) {",
+"            int d = s[i] - '0';",
+"            val[0][i] = d ? d : 0;",
+"            cnt[0][i] = d ? 1 : 0;",
+"            sum[0][i] = d;",
+"        }",
+"        for (int k = 1; k <= maxK; k++) {",
+"            for (int i = 0; i + (1<<k) <= m; i++) {",
+"                int j = i + (1<<(k-1));",
+"                cnt[k][i] = cnt[k-1][i] + cnt[k-1][j];",
+"                sum[k][i] = sum[k-1][i] + sum[k-1][j];",
+"                val[k][i] = (val[k-1][i]*pw[cnt[k-1][j]] + val[k-1][j]) % MOD;",
+"            }",
+"        }",
+"        vector<int> ans;",
+"        for (auto& q : queries) {",
+"            int l = q[0], r = q[1], pos = l, remaining = r-l+1;",
+"            long long curVal=0, curCnt=0, curSum=0;",
+"            while (remaining > 0) {",
+"                int k = 0; while ((1<<(k+1)) <= remaining) k++;",
+"                curVal = (curVal*pw[cnt[k][pos]] + val[k][pos]) % MOD;",
+"                curCnt += cnt[k][pos]; curSum += sum[k][pos];",
+"                pos += (1<<k); remaining -= (1<<k);",
+"            }",
+"            ans.push_back(curVal * curSum % MOD);",
+"        }",
+"        return ans;",
+"    }",
+"};"
+];
+
+let i=0, playing=false, timer=null;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function initHeader(){
+  $('code').innerHTML='<h2>Code</h2>'+code.map((l,n)=>
+    `<div data-l="${n}"><span class="ln">${n+1}</span><span>${esc(l)}</span></div>`).join('');
+}
+
+function renderGrid(gridArr, hlArr){
+  // build lookup
+  const filled = {};
+  gridArr.forEach(c=>{filled[c.k+'_'+c.i]=c});
+  const hl = {};
+  (hlArr||[]).forEach(h=>{hl[h.k+'_'+h.i]=h.cls});
+  let html = '<table class="gridtable"><tbody>';
+  for(let k=MAXK;k>=0;k--){
+    html += '<tr><td class="k-label">k='+k+'</td>';
+    const cols = M; // show full width, blank where block doesn't exist
+    for(let ci=0; ci<cols; ci++){
+      const size = 1<<k;
+      if(ci + size > M){ html += '<td></td>'; continue; }
+      const key = k+'_'+ci;
+      const c = filled[key];
+      const cls = hl[key] ? hl[key] : (c ? 'filled' : '');
+      if(c){
+        html += `<td class="${cls}"><div class="gcell-val">${esc(c.val)}</div><div class="gcell-sub">c${esc(c.cnt)} s${esc(c.sum)}</div></td>`;
+      } else {
+        html += `<td class="${cls}"></td>`;
+      }
+    }
+    html += '</tr>';
+  }
+  html += '<tr><td></td>';
+  for(let ci=0; ci<M; ci++){ html += `<td style="border:none;background:transparent;color:var(--dim);font-size:10px">i=${ci}</td>`; }
+  html += '</tr>';
+  html += '</tbody></table>';
+  $('gridwrap').innerHTML = html;
+}
+
+function render(){
+  const s = steps[i];
+  $('code').querySelectorAll('div[data-l]').forEach(d=>d.classList.toggle('cur', Number(d.dataset.l)===s.line));
+  const cur = $('code').querySelector('.cur');
+  if(cur && cur.scrollIntoView) cur.scrollIntoView({block:'nearest'});
+
+  $('phase').textContent = s.phase;
+
+  const vars = s.vars || {};
+  $('vars').innerHTML = Object.keys(vars).map(k=>`<span class="chip"><b>${esc(k)}</b>=${esc(vars[k])}</span>`).join('');
+
+  const hl = s.arrHighlight || {};
+  $('arr').innerHTML = digits.map((v,idx)=>{
+    const cls = hl[idx] ? ' '+hl[idx] : '';
+    return `<div class="col"><div class="cell${cls}">${esc(v)}</div><div class="idx">${idx}</div></div>`;
+  }).join('');
+
+  renderGrid(s.grid || [], s.gridHighlight || []);
+
+  $('narr').textContent = s.narration || '';
+
+  if(s.result){ $('result').textContent = 'answer = ' + s.result; $('result').classList.add('show'); }
+  else { $('result').classList.remove('show'); }
+
+  $('count').textContent = (i+1)+' / '+steps.length;
+  $('slider').value = i;
+  $('prev').disabled = i===0;
+  $('next').disabled = i===steps.length-1;
+  if(i===steps.length-1 && playing) pause();
+}
+
+function goTo(n){ i=Math.max(0,Math.min(steps.length-1,n)); render() }
+function next(){ if(i<steps.length-1) goTo(i+1) }
+function prev(){ if(i>0) goTo(i-1) }
+function play(){ if(i===steps.length-1) i=0; playing=true; $('play').textContent='\u23F8 Pause'; tick() }
+function tick(){ clearTimeout(timer); timer=setTimeout(()=>{ if(!playing) return; if(i<steps.length-1){ next(); tick() } else pause() }, Number($('speed').value)||1400) }
+function pause(){ playing=false; $('play').textContent='\u25B6 Play'; clearTimeout(timer) }
+
+$('next').onclick=()=>{ pause(); next() };
+$('prev').onclick=()=>{ pause(); prev() };
+$('play').onclick=()=>playing?pause():play();
+$('reset').onclick=()=>{ pause(); goTo(0) };
+$('slider').oninput=e=>{ pause(); goTo(Number(e.target.value)) };
+
+initHeader();
+$('slider').max = steps.length-1;
+render();
+</script>
+</body>
+</html>
